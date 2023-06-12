@@ -4,4 +4,20 @@ PhenoGPT is an advanced phenotype recognition model, leveraging the robust capab
 
 PhenoGPT is distributed under the [MIT License by Wang Genomics Lab](https://wglab.mit-license.org/).
 
+## Installation
+Since our model was hosted on the OpenAI cloud, the main package to install is the [OpenAI API](https://platform.openai.com/docs/api-reference).
+In your python/Conda environment, run
+```
+pip install openai
+```
+
+## Usage
+
+phenogpt.py
+
+## Examples
+
+Please refer to [Example](https://github.com/WGLab/DeepMod2/blob/main/docs/Example.md) detailed instructions on how to run phenogpt on BiolarkGSC+ test dataset.
+
 ## Fine-tuning
+To fine-tune a specialized phenotype recognition language model, we recommend to follow this [notebook]() script for details.
