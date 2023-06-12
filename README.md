@@ -6,11 +6,20 @@ PhenoGPT is distributed under the [MIT License by Wang Genomics Lab](https://wgl
 
 ## Installation
 Since our model was hosted on the OpenAI cloud, the main package to install is the [OpenAI API](https://platform.openai.com/docs/api-reference).
-In your python/Conda environment, run
+In your Python/Conda environment, run
 ```
 pip install openai
 ```
+to install OpenAI API.
 
+On the OpenAI [website](https://platform.openai.com/account/api-keys), please require a personal API token for model usage.
+
+**Remember that your API key is a secret! Every instance of usage and inference through PhenoGPT will incur a fee as stipulated in the OpenAI [documentation](https://openai.com/pricing). Our fine-tuned model is baesd on Davinci.**
+
+To establish your OPENAI_API_KEY environment variable, incorporate the subsequent line into your shell initialization script (for instance, .bashrc, zshrc, etc.). Alternatively, you can execute it in the command line prior to running the fine-tuning command.
+```
+export OPENAI_API_KEY="<OPENAI_API_KEY>"
+```
 ## Usage
 
 phenogpt.py
