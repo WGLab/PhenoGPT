@@ -20,9 +20,8 @@ To establish your OPENAI_API_KEY environment variable, incorporate the subsequen
 ```
 export OPENAI_API_KEY="<OPENAI_API_KEY>"
 ```
-## Usage
-
-phenogpt.py
+## Reproduce Model
+You can reproduce PhenoGPT model via OpenAI using BiolarkGSC+ dataset. We recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/PhenoGPT.ipynb) script for details.
 
 ## Examples
 
