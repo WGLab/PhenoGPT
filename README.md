@@ -25,9 +25,7 @@ You can reproduce PhenoGPT model via OpenAI using BiolarkGSC+ dataset. We recomm
 
 Once you successfully fine-tuned a PhenoGPT model, it will generate a model id like `davinci:ft-personal:phenogpt-2023-03-20-04-23-25`. You can save this model id for future use. Notice that the model will be affiliated to your API token directly and **not allowed** to share with others. You can build an API upon this for 'public use' if necessary.
 
-## Examples
 
-Please refer to [Example](https://github.com/WGLab/DeepMod2/blob/main/docs/Example.md) detailed instructions on how to run phenogpt on BiolarkGSC+ test dataset.
 
 ## Fine-tuning
 To fine-tune a specialized phenotype recognition language model, we recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/PhenoGPT.ipynb) script for details.
