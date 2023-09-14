@@ -15,11 +15,9 @@ bitsandbytes package is used for model quantization.
 
 To use LLaMA model, please apply for access first and download it into the local drive. [Instruction](https://huggingface.co/docs/transformers/main/model_doc/llama)
 
-## Reproduce Model
-You can reproduce PhenoGPT model via OpenAI using BiolarkGSC+ dataset. We recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/PhenoGPT.ipynb) script for details.
 
 ## Fine-tuning
-You can reproduce PhenoGPT model with different base models on BiolarkGSC+ dataset. To fine-tune a specialized phenotype recognition language model, we recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/PhenoGPT.ipynb) script for details.
+You can reproduce PhenoGPT model with different base models on BiolarkGSC+ dataset. To fine-tune a specialized phenotype recognition language model, we recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/run_phenogpt.ipynb) script for details.
 
 ## Inference
-If you want to simply implement PhenoGPT on your local machine for  inference, the fine-tuned models are saved in the [model](https://github.com/WGLab/PhenoGPT/tree/main/model) directory. Please follow the inference section of the script to run your model.
+If you want to simply implement PhenoGPT on your local machine for  inference, the fine-tuned models are saved in the [model](https://github.com/WGLab/PhenoGPT/tree/main/model) directory. Please follow the inference section of the [script](https://github.com/WGLab/PhenoGPT/blob/main/run_phenogpt.ipynb) to run your model.
