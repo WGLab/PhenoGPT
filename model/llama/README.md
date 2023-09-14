@@ -1,1 +1,1 @@
-
+This is the LORA model of llama based PhenoGPT. You can also download the model from our recent [release](https://github.com/WGLab/PhenoGPT/releases/tag/llama_v1.0). Please acquire llama base model first to implement this lora model. (you can apply for the access to the llama base model following this [instruction](https://huggingface.co/docs/transformers/model_doc/llama))
