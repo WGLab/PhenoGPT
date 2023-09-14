@@ -17,7 +17,7 @@ To use LLaMA model, please apply for access first and download it into the local
 
 
 ## Fine-tuning
-You can reproduce PhenoGPT model with different base models on BiolarkGSC+ dataset. To fine-tune a specialized phenotype recognition language model, we recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/run_phenogpt.ipynb) script for details.
+You can reproduce PhenoGPT model with different base models on BiolarkGSC+ dataset. To fine-tune a specialized phenotype recognition language model, we recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/run_phenogpt.ipynb) script for details. (The notebook is for both llama and falcon model implementation. For gpt-j, please refer to this [script](https://github.com/WGLab/PhenoGPT/blob/main/model/gpt-j/Finetune_gpt_j_6B_8bit_biolark.ipynb))
 
 ## Inference
 If you want to simply implement PhenoGPT on your local machine for  inference, the fine-tuned models are saved in the [model](https://github.com/WGLab/PhenoGPT/tree/main/model) directory. Please follow the inference section of the [script](https://github.com/WGLab/PhenoGPT/blob/main/run_phenogpt.ipynb) to run your model.
