@@ -1,31 +1,25 @@
 # PhenoGPT
 
-PhenoGPT is an advanced phenotype recognition model, leveraging the robust capabilities of GPT-3. It employs a fine-tuned implementation on the publicly accessible [BiolarkGSC+ dataset](https://github.com/lasigeBioTM/IHP), to enhance prediction accuracy and alignments. Like GPT-3's broad utilization, PhenoGPT can process diverse clinical abstracts for improved flexibility. For enhanced model precision and specialization, you have the option to further fine-tune the proposed PhenoGPT model utilizing OpenAI API packages. This process is elaborated in the subsequent [section](##Fine-tuning).
+PhenoGPT is an advanced phenotype recognition model, leveraging the robust capabilities of large language models. It employs a fine-tuned implementation on the publicly accessible [BiolarkGSC+ dataset](https://github.com/lasigeBioTM/IHP), to enhance prediction accuracy and alignments. Like GPT's broad utilization, PhenoGPT can process diverse clinical abstracts for improved flexibility. For enhanced model precision and specialization, you have the option to further fine-tune the proposed PhenoGPT model on your own clinical datasets. This process is elaborated in the subsequent [section](##Fine-tuning).
 
 PhenoGPT is distributed under the [MIT License by Wang Genomics Lab](https://wglab.mit-license.org/).
 
 ## Installation
-Since our model was hosted on the OpenAI cloud, the main package to install is the [OpenAI API](https://platform.openai.com/docs/api-reference).
-In your Python/Conda environment, run
+We need to install the required packages for model fine-tuning and inference. 
 ```
-pip install openai
+!pip install -q -U trl transformers accelerate git+https://github.com/huggingface/peft.git
+!pip install -q datasets bitsandbytes einops
 ```
-to install OpenAI API.
+In the command above, we utilize the accelerate package for model sharding. PEFT package is used for efficient fine-tuning like LORA.
+bitsandbytes package is used for model quantization.
 
-On the OpenAI [website](https://platform.openai.com/account/api-keys), please require a personal API token for model usage.
+To use LLaMA model, please apply for access first and download it into the local drive. [Instruction](https://huggingface.co/docs/transformers/main/model_doc/llama)
 
-**Remember that your API key is a secret! Every instance of usage and inference through PhenoGPT will incur a fee as stipulated in the OpenAI [documentation](https://openai.com/pricing). Our fine-tuned model is baesd on Davinci.**
-
-To establish your OPENAI_API_KEY environment variable, incorporate the subsequent line into your shell initialization script (for instance, .bashrc, zshrc, etc.). Alternatively, you can execute it in the command line prior to running the fine-tuning command.
-```
-export OPENAI_API_KEY="<OPENAI_API_KEY>"
-```
 ## Reproduce Model
 You can reproduce PhenoGPT model via OpenAI using BiolarkGSC+ dataset. We recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/PhenoGPT.ipynb) script for details.
 
-Once you successfully fine-tuned a PhenoGPT model, it will generate a model id like `davinci:ft-personal:phenogpt-2023-03-20-04-23-25`. You can save this model id for future use. Notice that the model will be affiliated to your API token directly and **not allowed** to share with others. You can build an API upon this for 'public use' if necessary.
-
-
-
 ## Fine-tuning
-To fine-tune a specialized phenotype recognition language model, we recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/PhenoGPT.ipynb) script for details.
+You can reproduce PhenoGPT model with different base models on BiolarkGSC+ dataset. To fine-tune a specialized phenotype recognition language model, we recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/PhenoGPT.ipynb) script for details.
+
+## Inference
+If you want to simply implement PhenoGPT on your local machine for  inference, the fine-tuned models are saved in the [model](https://github.com/WGLab/PhenoGPT/tree/main/model) directory. Please follow the inference section of the script to run your model.
