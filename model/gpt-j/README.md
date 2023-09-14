@@ -1,1 +1,1 @@
-
+The PhenoGPT with base model gpt-j can be downloaded directly from [here](https://www.dropbox.com/scl/fo/pyz0x5j96gfof8y1m1ua6/h?rlkey=mevgoi3xhazsamu8r13mji0r5&dl=0). We encourage people to use the llama based or falcon based PhenoGPT model since they have better performance and utilize efficient training strategy.
