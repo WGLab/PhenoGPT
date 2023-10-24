@@ -1,0 +1,1 @@
+This is the LORA model of llama2 based PhenoGPT. Please acquire llama2 base model first to implement this lora model. (you can apply for the access to the llama2 base model following this [instruction](https://huggingface.co/docs/transformers/model_doc/llama2))
