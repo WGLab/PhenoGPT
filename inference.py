@@ -31,7 +31,7 @@ args = parser.parse_args()
 # BASE_MODEL = "/mnt/isilon/wang_lab/jingye/projects/gpt/llama_hf"
 # lora_weights = '/mnt/isilon/wang_lab/jingye/projects/PhenoGPT/llama/experiments'
 BASE_MODEL = os.getcwd() + "/model/llama2/llama_hf/"
-lora_weights = os.getcwd() + './model/llama2/lora_weights/'
+lora_weights = os.getcwd() + '/model/llama2/lora_weights/'
 load_8bit = False
 tokenizer = LlamaTokenizer.from_pretrained(BASE_MODEL)
 
@@ -42,6 +42,21 @@ tokenizer.padding_side = "left"
 generation_config = GenerationConfig(
         temperature=0.1,
         top_p=0.5)
+##set up model
+model = LlamaForCausalLM.from_pretrained(
+        BASE_MODEL,
+        load_in_8bit=load_8bit,
+        device_map = "auto"
+    )
+model = PeftModel.from_pretrained(
+        model,
+        lora_weights,
+        torch_dtype=torch.float16,
+    )
+tokenizer = LlamaTokenizer.from_pretrained(BASE_MODEL)
+model.config.pad_token_id = tokenizer.pad_token_id = 0  # unk
+model.config.bos_token_id = 1
+model.config.eos_token_id = 2
 def remove_hpo(text):
     # Define the pattern to match HP:XXXXXXX
     pattern = r'\bHP\w*\b'
@@ -100,22 +115,7 @@ def read_text(input_file):
         input_dict[file_name] = data
     return(input_dict)
 def main():
-    # set up model
-    model = LlamaForCausalLM.from_pretrained(
-            BASE_MODEL,
-            load_in_8bit=load_8bit,
-            device_map = "auto"
-        )
-    model = PeftModel.from_pretrained(
-            model,
-            lora_weights,
-            torch_dtype=torch.float16,
-        )
-    tokenizer = LlamaTokenizer.from_pretrained(BASE_MODEL)
-    model.config.pad_token_id = tokenizer.pad_token_id = 0  # unk
-    model.config.bos_token_id = 1
-    model.config.eos_token_id = 2
-    input_dict = read_text(args.input) 
+    input_dict = read_text(args.input)
     for file_name, text in input_dict.items():
         # generate raw response
         output = generate_output(text)
