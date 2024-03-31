@@ -49,7 +49,9 @@ You can reproduce PhenoGPT model with different base models on BiolarkGSC+ datas
 If you want to simply implement PhenoGPT on your local machine for inference, the fine-tuned models are saved in the [model](https://github.com/WGLab/PhenoGPT/tree/main/model) directory. Please follow the inference section of the [script](https://github.com/WGLab/PhenoGPT/blob/main/inference.py) to run your model.
 
 Please use the following command:
+```
 python inference.py -i your_input_folder_directory -o your_output_folder_directory
+```
 
 ## Regarding PhenoBCBERT
 Since PhenoBCBERT was fine-tuned on the CHOP Proprietary dataset, we cannot publish the model publicly. Please refer to the [paper](https://doi.org/10.1016%2Fj.patter.2023.100887) for results.
