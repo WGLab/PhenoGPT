@@ -35,8 +35,9 @@ Please pip uninstalll package and pip install package if you encounter any runni
 1. Model:
     - To use LLaMA 2 model, please apply for access first and download it into the local drive. [Instruction](https://huggingface.co/docs/transformers/main/model/llama2)
     - Save model in the ./model/llama2/llama_hf/
-    - Download the updated fine-tuning LoRA weights in the release section on GitHub
+    - Download the updated fine-tuning LoRA weights in the release section on GitHub (v1.1.0)
     - Save LoRA weights in the ./model/llama2/lora_weights/
+    - Setups for Falcon 70B and Llama 1 7B models are similar.
 2. Input:
     - Input files should be txt files
     - Input argument can be either a single txt file or a whole directory containing all input txt files
