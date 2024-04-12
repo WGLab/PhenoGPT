@@ -56,7 +56,6 @@ Please follow the steps in the [BioSent2Vec tutorial](https://github.com/ncbi-nl
     - To use BioSent2Vec model, please see the BioSent2Vec tutorial above
     - Save model in ./BioSent2Vec/model
     - Please use ```wget https://ftp.ncbi.nlm.nih.gov/pub/lu/Suppl/BioSentVec/BioSentVec_PubMed_MIMICIII-bigram_d700.bin```
-    - Save model in the ./model/llama2/llama_hf/
 
 ## Fine-tuning
 You can reproduce PhenoGPT model with different base models on BiolarkGSC+ dataset. To fine-tune a specialized phenotype recognition language model, we recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/run_phenogpt.ipynb) script for details. (The notebook is for both llama and falcon model implementation. For gpt-j, please refer to this [script](https://github.com/WGLab/PhenoGPT/blob/main/model/gpt-j/Finetune_gpt_j_6B_8bit_biolark.ipynb).)
