@@ -1,0 +1,16 @@
+unilateral epibulbar limbal dermoids	HP:0001140
+peripheral corneal vascularization and opacity	HP:0007957
+worse visual acuity	HP:0007663
+astigmatism	HP:0000483
+bell's palsy	HP:0025331
+facial paralysis	HP:0007209
+Surgical complications	HP:0004846
+facial weakness	HP:0030319
+Excision of limbal dermoids	HP:0001140
+more astigmatism	HP:0000483
+unilateral facial weakness	HP:0012799
+primary care physicians	HP:0002189
+cosmetically improved	HP:0007651
+preoperatively	HP:0020045
+persistent epithelial defects	HP:0000584
+epithelial defects	HP:0000584

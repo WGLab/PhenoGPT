@@ -31,12 +31,23 @@ In the command above, we utilize the accelerate package for model sharding. PEFT
 bitsandbytes package is used for model quantization.
 Please pip uninstalll package and pip install package if you encounter any running issues.
 
+We need to install the required packages for BioSent2Vec model to convert medical terms to HPO ID
+```
+pip install nltk
+conda install scipy
+```
+Please follow the steps in the [BioSent2Vec tutorial](https://github.com/ncbi-nlp/BioSentVec/tree/master) and [issue](https://github.com/ncbi-nlp/BioSentVec/issues/16#issuecomment-1222629369) to install BioSent2Vec properly.
+
 ## Set Up Model, Input, and Output directories
 1. Model:
     - To use LLaMA 2 model, please apply for access first and download it into the local drive. [Instruction](https://huggingface.co/docs/transformers/main/model/llama2)
-    - Save model in the ./model/llama2/llama_hf/
-    - Download the updated fine-tuning LoRA weights in the release section on GitHub
-    - Save LoRA weights in the ./model/llama2/lora_weights/
+    - Save model in the ./model/llama2/llama2_base/
+    - Download the updated fine-tuning LoRA weights in the release section on GitHub (Latest version: v1.1.0)
+    - Save LoRA weights in the ./model/llama2/llama2_lora_weights/
+
+    - To use BioSent2Vec model, please see the BioSent2Vec tutorial above
+    - Save model in ./BioSent2Vec/model
+    - Please use ```wget https://ftp.ncbi.nlm.nih.gov/pub/lu/Suppl/BioSentVec/BioSentVec_PubMed_MIMICIII-bigram_d700.bin```
 2. Input:
     - Input files should be txt files
     - Input argument can be either a single txt file or a whole directory containing all input txt files
@@ -50,8 +61,9 @@ If you want to simply implement PhenoGPT on your local machine for inference, th
 
 Please use the following command:
 ```
-python inference.py -i your_input_folder_directory -o your_output_folder_directory
+python inference.py -i your_input_folder_directory -o your_output_folder_directory -id yes
 ```
+-id: specify 'yes' if you want to obtain the corresponding HPO ID to the detected phenotypes, otherwise 'no' (default: 'yes')
 
 ## Regarding PhenoBCBERT
 Since PhenoBCBERT was fine-tuned on the CHOP Proprietary dataset, we cannot publish the model publicly. Please refer to the [paper](https://doi.org/10.1016%2Fj.patter.2023.100887) for results.
