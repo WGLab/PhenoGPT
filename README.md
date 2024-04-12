@@ -39,26 +39,24 @@ conda install scipy
 Please follow the steps in the [BioSent2Vec tutorial](https://github.com/ncbi-nlp/BioSentVec/tree/master) and [issue](https://github.com/ncbi-nlp/BioSentVec/issues/16#issuecomment-1222629369) to install BioSent2Vec properly.
 
 ## Set Up Model, Input, and Output directories
-1. Model:
+1. Models:
     - To use LLaMA 2 model, please apply for access first and download it into the local drive. [Instruction](https://huggingface.co/docs/transformers/main/model/llama2)
-<<<<<<< HEAD
     - Save model in the ./model/llama2/llama2_base/
     - Download the updated fine-tuning LoRA weights in the release section on GitHub (Latest version: v1.1.0)
     - Save LoRA weights in the ./model/llama2/llama2_lora_weights/
 
-    - To use BioSent2Vec model, please see the BioSent2Vec tutorial above
-    - Save model in ./BioSent2Vec/model
-    - Please use ```wget https://ftp.ncbi.nlm.nih.gov/pub/lu/Suppl/BioSentVec/BioSentVec_PubMed_MIMICIII-bigram_d700.bin```
-=======
-    - Save model in the ./model/llama2/llama_hf/
     - Download the updated fine-tuning LoRA weights in the release section on GitHub (v1.1.0)
     - Save LoRA weights in the ./model/llama2/lora_weights/
     - Setups for Falcon 70B and Llama 1 7B models are similar.
->>>>>>> fc62a5bc0dc4408ed217c83901e45230d74dfb5e
 2. Input:
     - Input files should be txt files
     - Input argument can be either a single txt file or a whole directory containing all input txt files
     - Please see the input and output directories for reference
+3. BioSent2Vec:
+    - To use BioSent2Vec model, please see the BioSent2Vec tutorial above
+    - Save model in ./BioSent2Vec/model
+    - Please use ```wget https://ftp.ncbi.nlm.nih.gov/pub/lu/Suppl/BioSentVec/BioSentVec_PubMed_MIMICIII-bigram_d700.bin```
+    - Save model in the ./model/llama2/llama_hf/
 
 ## Fine-tuning
 You can reproduce PhenoGPT model with different base models on BiolarkGSC+ dataset. To fine-tune a specialized phenotype recognition language model, we recommend to follow this [notebook](https://github.com/WGLab/PhenoGPT/blob/main/run_phenogpt.ipynb) script for details. (The notebook is for both llama and falcon model implementation. For gpt-j, please refer to this [script](https://github.com/WGLab/PhenoGPT/blob/main/model/gpt-j/Finetune_gpt_j_6B_8bit_biolark.ipynb).)
