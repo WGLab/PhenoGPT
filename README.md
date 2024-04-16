@@ -44,9 +44,6 @@ Please follow the steps in the [BioSent2Vec tutorial](https://github.com/ncbi-nl
     - Save model in the ./model/llama2/llama2_base/
     - Download the updated fine-tuning LoRA weights in the release section on GitHub (Latest version: v1.1.0)
     - Save LoRA weights in the ./model/llama2/llama2_lora_weights/
-
-    - Download the updated fine-tuning LoRA weights in the release section on GitHub (v1.1.0)
-    - Save LoRA weights in the ./model/llama2/lora_weights/
     - Setups for Falcon 70B and Llama 1 7B models are similar.
 2. Input:
     - Input files should be txt files
