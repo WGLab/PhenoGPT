@@ -49,6 +49,10 @@ tokenizer = LlamaTokenizer.from_pretrained(BASE_MODEL)
 model.config.pad_token_id = tokenizer.pad_token_id = 0  # unk
 model.config.bos_token_id = 1
 model.config.eos_token_id = 2
+if tokenizer.pad_token is None:
+    tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+tokenizer.padding_side = "left"
+model.eval()
 hpo_database = joblib.load('hpo_database.json')
 
 def preprocess_sentence(text):
@@ -63,23 +67,29 @@ def preprocess_sentence(text):
     return ' '.join(tokens)
 def remove_hpo(text):
     # Define the pattern to match HP:XXXXXXX
-#     pattern1 = r'\bHP_\d{7}\b'
-#     pattern2 = r'\bHP:\d{7}\b'
-    pattern = r'\bHP\w*\b'
+    if "HP:XXXXXXX" in text:
+        pattern = "HP:XXXXXXX"
+    else:
+        pattern = r'HP:.+'
     # Replace matched patterns with an empty string
     cleaned_text = re.sub(pattern, '', text)
+    if 'note' in text.lower():
+        text = text.lower()
+        cleaned_text = re.sub(r'note:.+', '', text)
     #cleaned_text = re.sub(pattern2, '', cleaned_text)
     return cleaned_text
 def generate_output(text):
-    prompt = f"""Input: {text}
-    ### Response:
-    """
+    instructions = "You are a medical assistant and reading a clinical note. Identify a list of all medical phenotypic abnormalities from input text. Format your answer as a list of the phenotypes separated by new line character and do not generate random answers. Only output the list."
+    base_prompt = """<s>[INST]\n<<SYS>>\nInstructions: {system_prompt}\n<</SYS>>\nInput: {user_prompt}[/INST]\n ### Response: """
+    prompt = base_prompt.format(system_prompt = instructions,
+            user_prompt = text)
     inputs = tokenizer(prompt, return_tensors="pt")
     input_ids = inputs["input_ids"].to('cuda')
-    # model.to(DEVICE)
+    #model.to(DEVICE)
     with torch.no_grad():
         generation_output = model.generate(
             input_ids=input_ids,
+            pad_token_id = tokenizer.eos_token_id,
             generation_config=generation_config,
             return_dict_in_generate=True,
             output_scores=True,
@@ -91,14 +101,14 @@ def generate_output(text):
         print("WARNING: Your text input has more than the predefined maximum 2048 tokens. The results may be defective.")
     return(output)
 def clean_output(output):
-    output = remove_hpo(output)
     if "### Response:":
         output = output.split("### Response:")[-1].split("\n")
+        output = [remove_hpo(text) for text in output]
         if len(output) > 0:
             output_clean = [t.split("|") for t in output]
             output_clean = list(set(chain(*output_clean)))
-            output_clean = [re.sub(r'^[\s\W]+|[\s\W]+$', '', t) for t in output_clean if not t.strip().startswith("END")]
-            output_clean = [t for t in output_clean if t]
+            output_clean = [re.sub(r'^[\W\d_]+|[\s\W]+$', '', t) for t in output_clean if not t.strip().startswith("END") and not t.strip() == '</s>']
+            output_clean = [re.sub('</s', '', t) for t in output_clean if t and t != "Phenotype"]
         else:
             print("No medical terms were detected")
             output_clean = []
