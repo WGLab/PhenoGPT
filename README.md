@@ -12,8 +12,8 @@ We need to install the required packages for model fine-tuning and inference.
 conda create -n llm_phenogpt python=3.11
 conda activate llm_phenogpt
 conda install pandas numpy scikit-learn matplotlib seaborn requests joblib
-conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
-conda install -c "nvidia/label/cuda-12.1" cuda-toolkit
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+conda install nvidia/label/cuda-12.1.0::cuda-tools
 conda install -c conda-forge jupyter
 conda install intel-openmp blas
 conda install mpi4py
