@@ -6,6 +6,10 @@ Llama 2 is the default model as it performs the best compared to other models su
 
 PhenoGPT is distributed under the [MIT License by Wang Genomics Lab](https://wglab.mit-license.org/).
 
+The latest development of PhenoGPT is [PhenoGPT2](https://github.com/WGLab/PhenoGPT2). Compared to PhenoGPT, the main differences are: (1) we have used Llama 3.1 as the base model for fine-tuning HPO recognition model, with noticeable improvements in accuracy of phenotype recognition as evaluated on several data sets (2) we have implemented the ability of direct tokenization of HPO ID in the model (i.e., "HP:1234567" is treated as one token, rather than several tokens, in the model), to minimize the HPO hallucination problem.
+
+
+
 ## Installation
 We need to install the required packages for model fine-tuning and inference. 
 ```
