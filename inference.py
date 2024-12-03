@@ -143,7 +143,7 @@ def phenogpt_output(raw_output, biosent2vec, termDB2vec, convert2hpo = 'yes'):
             dist = []
             for j, ref in enumerate(all_terms_vec):
                 dis = distance.cosine(phenoterm, ref)
-                if dis > 0:
+                if dis >= 0:
                     all_distances[all_terms[j]] = 1 - dis
                     dist.append(1-dis)
             if len(dist) != 0:
