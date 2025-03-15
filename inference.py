@@ -27,7 +27,7 @@ parser.add_argument("-o", "--output", required = True, help="directory to output
 parser.add_argument("-id", "--hpoid", choices=['yes', 'no'], default = 'yes', required = False, help="determine if HPO IDs should be predicted")
 args = parser.parse_args()
 ## please replace the following lines as your directories to the Llama 2 7B base model & Lora-weight training above
-BASE_MODEL = os.getcwd() + "/model/llama2/llama2_base"
+BASE_MODEL = 'meta-llama/Llama-2-7b-chat-hf' #os.getcwd() + "/model/llama2/llama2_base"
 lora_weights = os.getcwd() + '/model/llama2/llama2_lora_weights'
 load_8bit = False
 tokenizer = LlamaTokenizer.from_pretrained(BASE_MODEL)
@@ -117,13 +117,13 @@ def clean_output(output):
         output_clean = []
     return(output_clean)
 def read_text(input_file):
-    if ".txt" in input_file:
+    if os.path.isfile(input_file):
         input_list=[input_file]
     else:
-        input_list = glob.glob(input_file + "/*.txt")
+        input_list = glob.glob(input_file + "/*")
     input_dict = {}
     for f in input_list:
-        file_name = f.split('/')[-1][:-4]
+        file_name = f.split('/')[-1].split(".")[0]
         with open(f, 'r') as r:
             data = r.readlines()
             if len(data) > 1:
@@ -142,8 +142,11 @@ def phenogpt_output(raw_output, biosent2vec, termDB2vec, convert2hpo = 'yes'):
             all_distances = {}
             dist = []
             for j, ref in enumerate(all_terms_vec):
+                if answer_clean[i].capitalize() in all_terms:
+                    term2hpo[answer_clean[i]] = hpo_database[answer_clean[i].capitalize()]
+                    continue
                 dis = distance.cosine(phenoterm, ref)
-                if dis >= 0:
+                if dis > 0:
                     all_distances[all_terms[j]] = 1 - dis
                     dist.append(1-dis)
             if len(dist) != 0:
@@ -152,11 +155,13 @@ def phenogpt_output(raw_output, biosent2vec, termDB2vec, convert2hpo = 'yes'):
                 term2hpo[answer_clean[i]] = hpo_id
         return term2hpo
     else:
-        return answer_clean
+        return answer_clean 
 def main():
     #please replace your model path here
-    biosent2vec_path = './BioSentVec/model/BioSentVec_PubMed_MIMICIII-bigram_d700.bin'
+    biosent2vec_path = '/home/nguyenqm/projects/github/PhenoGPT/Biosent2Vec/model/BioSentVec_PubMed_MIMICIII-bigram_d700.bin'
     biosent2vec = sent2vec.Sent2vecModel()
+    if not os.path.exists(args.output):
+        os.makedirs(args.output)
     try:
         print("Loading BioSent2Vec model")
         biosent2vec.load_model(biosent2vec_path)
@@ -165,7 +170,7 @@ def main():
         all_terms_preprocessed = [preprocess_sentence(txt) for txt in all_terms]
         all_terms_vec = biosent2vec.embed_sentences(all_terms_preprocessed)
         ##{Term : Numerical Vector}
-        termDB2vec = {k:v for k,v in zip(all_terms, all_terms_vec)}
+        termDB2vec = {k:v for k,v in zip(all_terms, all_terms_vec) if k != 'All'}
         print('start phenogpt')
         input_dict = read_text(args.input)
         for file_name, text in input_dict.items():
