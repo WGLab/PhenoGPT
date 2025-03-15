@@ -176,7 +176,7 @@ def main():
         for file_name, text in input_dict.items():
             try:
                 # generate raw response
-                raw_output = generate_output(text[0])
+                raw_output = generate_output(text)
                 # clean up response
                 output = phenogpt_output(raw_output, biosent2vec, termDB2vec, args.hpoid)
                 # save output
