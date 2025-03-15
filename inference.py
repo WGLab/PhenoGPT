@@ -142,8 +142,11 @@ def phenogpt_output(raw_output, biosent2vec, termDB2vec, convert2hpo = 'yes'):
             all_distances = {}
             dist = []
             for j, ref in enumerate(all_terms_vec):
+                if answer_clean[i].capitalize() in all_terms:
+                    term2hpo[answer_clean[i]] = hpo_database[answer_clean[i].capitalize()]
+                    continue
                 dis = distance.cosine(phenoterm, ref)
-                if dis >= 0:
+                if dis > 0: # biosent2vect may not work well when dis == 0. Instead, if dis==0 => exact match, it will go thru the if statement above
                     all_distances[all_terms[j]] = 1 - dis
                     dist.append(1-dis)
             if len(dist) != 0:
@@ -152,8 +155,7 @@ def phenogpt_output(raw_output, biosent2vec, termDB2vec, convert2hpo = 'yes'):
                 term2hpo[answer_clean[i]] = hpo_id
         return term2hpo
     else:
-        return answer_clean
-def main():
+        return answer_clean 
     #please replace your model path here
     biosent2vec_path = './BioSentVec/model/BioSentVec_PubMed_MIMICIII-bigram_d700.bin'
     biosent2vec = sent2vec.Sent2vecModel()
@@ -165,7 +167,7 @@ def main():
         all_terms_preprocessed = [preprocess_sentence(txt) for txt in all_terms]
         all_terms_vec = biosent2vec.embed_sentences(all_terms_preprocessed)
         ##{Term : Numerical Vector}
-        termDB2vec = {k:v for k,v in zip(all_terms, all_terms_vec)}
+        termDB2vec = {k:v for k,v in zip(all_terms, all_terms_vec) if k != 'All'}
         print('start phenogpt')
         input_dict = read_text(args.input)
         for file_name, text in input_dict.items():
